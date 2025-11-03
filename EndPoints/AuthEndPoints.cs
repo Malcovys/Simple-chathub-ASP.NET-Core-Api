@@ -14,8 +14,8 @@ public static class AuthEndPoints
 
             if (user is null) return Results.Unauthorized();
 
-            user.IsConnected = true;
-            await db.SaveChangesAsync();
+            // user.IsConnected = true;
+            // await db.SaveChangesAsync();
 
             return Results.Ok(new { userId = user.Id });
         });
