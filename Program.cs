@@ -25,6 +25,9 @@ builder.Services.ConfigureHttpJsonOptions(option =>
 
 var app = builder.Build();
 
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("Application started successfully");
+
 app.MapGroup("/auth")
     .MapAuthApi();
 

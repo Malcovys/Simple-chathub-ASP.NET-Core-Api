@@ -16,23 +16,23 @@ public class ChatHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        var user = Context.GetHttpContext()?.Items["User"] as User;
+        var userId = Context.GetHttpContext()?.Items["UserId"];
 
-        if (user != null)
+        if (userId is int id)
         {
             // Mark user is connected
-            var userTracked = await _db.Users.FindAsync(user.Id);
+            var userTracked = await _db.Users.FindAsync(id);
             if (userTracked != null)
             {
                 userTracked.IsConnected = true;
                 await _db.SaveChangesAsync();
             }
 
-            _usersConnections[user.Id] = Context.ConnectionId;
+            _usersConnections[id] = Context.ConnectionId;
 
-            await Clients.Others.SendAsync("UserConnected", user.Id);
+            await Clients.Others.SendAsync("UserConnected", id);
 
-            Console.WriteLine($"#ChatHub : User {user.Id} connected successfully");
+            Console.WriteLine($"#ChatHub : User {id} connected successfully");
         }
         
         await base.OnConnectedAsync();

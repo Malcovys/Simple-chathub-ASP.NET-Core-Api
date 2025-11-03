@@ -5,15 +5,13 @@ namespace Middleware;
 public class ChatHubAuthMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly UserDb _db;
 
-    public ChatHubAuthMiddleware(UserDb db, RequestDelegate next)
+    public ChatHubAuthMiddleware(RequestDelegate next)
     {
-        _db = db;
         _next = next;
     }
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, UserDb db)
     {
         if (context.Request.Path.StartsWithSegments("/ChatHub"))
         {
@@ -34,17 +32,18 @@ public class ChatHubAuthMiddleware
             }
 
             // Retrive user from database
-            var user = await _db.Users.FindAsync(userId);
+            // var db = context.RequestServices.GetRequiredService<UserDb>();
+            var user = await db.Users.FindAsync(userId);
 
             if (user is null)
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                await context.Response.WriteAsync("user unknow");
+                await context.Response.WriteAsync("unknown user");
                 return;
             }
 
             // Add user data to the context
-            context.Items["User"] = user;
+            context.Items["UserId"] = user.Id;
         }
 
         await _next(context);
