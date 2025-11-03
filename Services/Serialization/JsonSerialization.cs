@@ -11,6 +11,7 @@ using Models.Requests;
 [JsonSerializable(typeof(LoginRequest))]
 [JsonSerializable(typeof(RegisterRequest))]
 [JsonSerializable(typeof(GetConnectedUsersRequest))]
+[JsonSerializable(typeof(GetMessagesRequest))]
 internal partial class AppJsonSerializerContext : JsonSerializerContext
 {
 

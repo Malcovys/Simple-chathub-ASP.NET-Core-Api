@@ -26,11 +26,11 @@ public class ChatHub : Hub
             {
                 userTracked.IsConnected = true;
                 await _db.SaveChangesAsync();
+
+                _usersConnections[id] = Context.ConnectionId;
+
+                await Clients.All.SendAsync("UserConnected", id, userTracked.Name);
             }
-
-            _usersConnections[id] = Context.ConnectionId;
-
-            await Clients.Others.SendAsync("UserConnected", id);
 
             Console.WriteLine($"#ChatHub : User {id} connected successfully");
         }
@@ -58,9 +58,9 @@ public class ChatHub : Hub
             {
                 user.IsConnected = false;
                 await _db.SaveChangesAsync();
-            }
 
-            await Clients.Others.SendAsync("UserDisconnected", userId);
+                await Clients.All.SendAsync("UserDisconnected", userId, user.Name);
+            }
 
             Console.WriteLine($"#ChatHub : User {userId} disconnected successfully");
         }

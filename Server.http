@@ -7,8 +7,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "Name": "Malcovys",
-    "Password": "Malcoboy"
+    "Name": "Elena",
+    "Password": "Elena passW"
 }
 
 ###
@@ -18,8 +18,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "Name": "Malcovys",
-    "Password": "Malcoboy"
+    "Name": "Elena",
+    "Password": "Elena passW"
 }
 
 ###

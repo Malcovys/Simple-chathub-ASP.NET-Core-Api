@@ -8,7 +8,26 @@ public static class ChatEndPoints
 {
     internal static RouteGroupBuilder MapChatApi(this RouteGroupBuilder group)
     {
-        group.MapGet("/", async (MessageDb db) => await db.Messages.ToListAsync());
+        group.MapGet("/", async (MessageDb Msgdb, UserDb usrDb) => {
+            var userMessages = new List<UserMessage>();
+
+            var messages = await Msgdb.Messages.ToListAsync();
+            var userIds = messages.Select(m => m.UserId).Distinct().ToList();
+            
+            var users = await usrDb.Users
+                .Where(u => userIds.Contains(u.Id))
+                .ToDictionaryAsync(u => u.Id, u => u.Name);
+
+            foreach (var msg in messages)
+            {
+                if (users.TryGetValue(msg.UserId, out var userName))
+                {
+                    userMessages.Add(new UserMessage(msg.UserId, userName, msg.Content));
+                }
+            }
+
+            return userMessages;
+        });
         
         group.MapPost("/", async (
             UserDb usrDb,
@@ -30,7 +49,7 @@ public static class ChatEndPoints
             await msgdb.Messages.AddAsync(newMessage);
             await msgdb.SaveChangesAsync();
 
-            await hub.Clients.All.SendAsync("ReceiveMessage", request.UserId, request.Content);
+            await hub.Clients.All.SendAsync("ReceiveMessage", request.UserId, user.Name, request.Content);
 
             return Results.Ok();
         });
