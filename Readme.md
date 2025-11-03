@@ -2,6 +2,10 @@
 
 Real-time chat application built with ASP.NET Core and SignalR.
 
+## Client Integration
+
+- Simple Client Integration: [Simple-chathub-Client-Avalonia](https://github.com/Malcovys/Simple-chathub-Client-Avalonia)
+
 ## Prerequisites
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
@@ -151,4 +155,4 @@ dotnet ef database update --context MessageDb
 
 **Malcovys**
 - GitHub: [@Malcovys](https://github.com/Malcovys)
-- Repository: [Simple-chathub-Client-Avalonia](https://github.com/Malcovys/Simple-chathub-Client-Avalonia)
+- Repository: [Simple-chathub-ASP.NET-Core-Api](https://github.com/Malcovys/Simple-chathub-ASP.NET-Core-Api)
