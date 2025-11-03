@@ -1,0 +1,1 @@
+public record GetConnectedUsersRequest(int? userId);

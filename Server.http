@@ -1,0 +1,40 @@
+@Server_HostAddress = http://localhost:3000
+
+###
+
+POST {{Server_HostAddress}}/auth/register/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "Name": "Malcovys",
+    "Password": "Malcoboy"
+}
+
+###
+
+POST {{Server_HostAddress}}/auth/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "Name": "Malcovys",
+    "Password": "Malcoboy"
+}
+
+###
+
+GET {{Server_HostAddress}}/messages/
+Accept: application/json
+Content-Type: application/json
+
+###
+
+POST {{Server_HostAddress}}/messages/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "UserId": 1,
+    "Content": "Bonjour ?"
+}
