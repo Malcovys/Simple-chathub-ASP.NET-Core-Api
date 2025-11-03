@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Middleware;
 using Models.Dtos;
 using SignalRChat.Hubs;
 
@@ -12,10 +12,9 @@ builder.Services.AddSqlite<MessageDb>(connectionString);
 // builder.Services.AddDbContext<UserDb>(options => options.UseInMemoryDatabase("users"));
 
 // builder.Services.AddSignalR();
-builder.Services.AddSignalR()
-// .AddHubOptions(option => 
-//     option.AddFilter<ChatHubFilter>()
-// )
+builder.Services.AddSignalR(
+    // (option) => option.AddFilter<ChatHubFilter>()
+)
 .AddJsonProtocol(option =>
     option.PayloadSerializerOptions.TypeInfoResolver = AppJsonSerializerContext.Default
 );
@@ -35,6 +34,7 @@ app.MapGroup("/users")
 app.MapGroup("/messages")
     .MapChatApi();
 
+app.UseChatHubAuth();
 app.MapHub<ChatHub>("/ChatHub");
 
 app.Run();
