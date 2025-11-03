@@ -147,6 +147,8 @@ dotnet ef database update --context UserDb
 dotnet ef database update --context MessageDb
 ```
 
-## License
+## 👤 Author
 
-[To be defined]
+**Malcovys**
+- GitHub: [@Malcovys](https://github.com/Malcovys)
+- Repository: [Simple-chathub-Client-Avalonia](https://github.com/Malcovys/Simple-chathub-Client-Avalonia)
