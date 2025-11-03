@@ -1,0 +1,7 @@
+obj/
+bin/
+Migrations/
+
+*.db
+*.db-shm
+*.db-wal
